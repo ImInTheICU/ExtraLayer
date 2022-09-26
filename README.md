@@ -29,7 +29,7 @@ Testing WebHook
 ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless your testing webhook.
 ```
 
-![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.png?raw=true)
+![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.PNG?raw=true)
 
 ## ChangeLog:
 * 9/26/2022 -- 0.2
