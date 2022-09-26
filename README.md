@@ -31,7 +31,7 @@ ExtraLayer._START_LAYER() # // This will init ExtraLayer **SHOULD BE THE FIRST T
 ## Contributing
 Contributing is the fun part!
 Wan't to help or improve something?!
-Make a pull-request or you can dm me on discord, **BugleBoy#1234**
+Make a pull-request or you can dm me on discord, **BugleBoy#1234** / **DDR4Ram#6643**
 We're currently looking for more ways to stop debugging and improve our methods.
 
 ## License
