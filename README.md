@@ -5,6 +5,7 @@ Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back
 ## Extra-Layer Moduels
 | Plugin | Function |
 | ------ | ------ |
+| Discord | Allow's logging on Hard-EXIT |
 | EXIT | Hard close's the program | 
 | CHECK_WINDOWS | Check's if debug programs are open. |
 | CHECK_IP | Check's if the IP is a blacklisted or common IP |
@@ -19,14 +20,31 @@ Simple Example
 ```py
 # // Import ExtraLayer or copy code into your main-file!
 
-ExtraLayer._START_LAYER() # // This will init ExtraLayer **SHOULD BE THE FIRST THING YOU DO!**
+ExtraLayer._START_LAYER() # // This will init ExtraLayer | THIS SHOULD BE THE FIRST THING YOU DO!
 ```
+Testing WebHook
+```py
+# // Import ExtraLayer or copy code into your main-file!
+
+ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless your testing webhook.
+```
+
+![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.png?raw=true)
+
+## ChangeLog:
+* 9/26/2022 -- 0.2
+  * Fixed LAYER_SEND_DEBUG.
+  * Changed EXIT_Reasons.
+  * Custom EXIT_Reasons.
+  * WebHook Logging, with PC info. `->PC-Name,All-PC's,IP,Detection,HWID`
+
+* 9/25/2022 -- 0.1
+  * Creating Main `->BackEnd`
 
 ## TODO:
 - More Layer's of anti-debugger / anti-tamper
-- Better Code / De-spaghetti the code
-- WebHook Logging (W.I.P)
-- QOF Improvements
+- Better Code / De-spaghetti the code (W.I.P)
+- QOF Improvements (W.I.P)
 
 ## Contributing
 Contributing is the fun part!
