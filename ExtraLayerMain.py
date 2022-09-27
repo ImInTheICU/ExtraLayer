@@ -62,7 +62,7 @@ class ExtraLayer:
     # // Settings
     LAYER_SEND_REASON = True # // Send the reason of exiting | might help them debug... so use at cation!
     LAYER_SEND_INFO = False # // Send debug info, of user | might help you debug if ExtraLayer is causing problems!
-    LAYER_DISCORD_WEBHOOK = "https://discordapp.com/api/webhooks/1024049249249398906/8vJ1NKLWzEYI2n-wVjNkEyFnwQdq1jc5IAjns_2kWd0AACfxD0SB2rKuwQD52agQlXwZ"
+    LAYER_DISCORD_WEBHOOK = "https://discordapp.com/api/webhooks/......................../.............................."
 
     # // Extras
     self_file =  path.basename(sys.argv[0])
