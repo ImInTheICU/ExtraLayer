@@ -1,5 +1,5 @@
 # Extra-Layer
-Extra-Layer is a Python Anti-Tamper tool, that includes 8 layers of checks, that can be enabled or disabled at any time.
+Extra-Layer is a Python Anti-Tamper tool, that includes `13` layers of checks, that can be enabled or disabled at any time.
 Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back-ground of the users computer as the main script runs.
 
 ## Extra-Layer Moduels
