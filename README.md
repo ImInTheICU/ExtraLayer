@@ -13,6 +13,10 @@ Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back
 | CHECK_REGISTRY | Check's if VM is being used also HWIDKey |
 | CHECK_DLL | Check's if GUEST is being used also if VM is being used |
 | CHECK_SPECS | Check's CPU/Memory Counts Common mistakes in VM's |
+| _GET_CHECKSUM | Get Scripts CheckSum / Hash |
+| _ADD_JUNK | Add's JunkCode (Changes CheckSum) |
+| _RM_JUNK | Remove's JunkCode (Changes CheckSum) |
+| _JUNK_CODE | Main Thread for JunkCode |
 | START_LAYER | Start's the Anti-Debugger |
 
 ## Example:
@@ -32,6 +36,10 @@ ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless you
 ![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.PNG?raw=true)
 
 ## ChangeLog:
+* 9/26/2022 -- 0.3
+  * Added Live-JunkCode Generator `->(Mainly used to change checksum)`.
+  * Slight code improvements.
+
 * 9/26/2022 -- 0.2
   * Fixed LAYER_SEND_DEBUG.
   * Changed EXIT_Reasons.
