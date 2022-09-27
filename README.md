@@ -35,6 +35,10 @@ ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless you
 
 ![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.PNG?raw=true)
 
+## Like what you see?
+Staring the project helps me know!
+
+
 ## ChangeLog:
 * 9/26/2022 -- 0.3
   * Added Live-JunkCode Generator `->(Mainly used to change checksum)`.
