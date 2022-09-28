@@ -1,3 +1,5 @@
+import math
+import random
 import requests
 import json
 import socket
@@ -19,7 +21,7 @@ from winreg import HKEY_LOCAL_MACHINE, OpenKey, CloseKey, QueryValueEx
 # ExtraLayer | An extra-layer between you and the code.
 # ExtraLayer | Should be used along with a obfuscator!
 
-# // DiscordWebhook Moduel
+# // Secondary Class for logging.
 class Discord:
     def __init__(self, *, url):
         self.url = url
@@ -58,15 +60,15 @@ class Discord:
                 self.url, json.dumps(data), headers={"Content-Type": "application/json"}
             )
 
+# // Main Class
 class ExtraLayer:
     # // Settings
     LAYER_SEND_REASON = True # // Send the reason of exiting | might help them debug... so use at cation!
     LAYER_SEND_INFO = False # // Send debug info, of user | might help you debug if ExtraLayer is causing problems!
-    LAYER_DISCORD_WEBHOOK = "https://discordapp.com/api/webhooks/......................../.............................."
+    LAYER_DISCORD_WEBHOOK = "https://discordapp.com/api/webhooks/..../........"
 
     # // Extras
-    self_file =  path.basename(sys.argv[0])
-    JUNK_IDS = []
+    self_file =  path.basename(sys.argv[0]) # // The name of the file (in-case it gets re-named)
 
     if LAYER_DISCORD_WEBHOOK != "":
         try:
@@ -82,7 +84,7 @@ class ExtraLayer:
         "_CHECK_REGISTRY":["Detected VM(VPS) 0x2"],
         "_CHECK_DLL":["Detected VM(VPS) 0x3"],
         "_CHECK_SPECS":["MEMORY Invalid!","STORAGE Invalid!","CPU Counts, invalid!"],
-        "_JUNK_CODE":["Detected Changes!"],
+        "_JUNK_CODE":[f"{self_file} WAS CHANGED!"],
         }
 
 
@@ -197,6 +199,8 @@ class ExtraLayer:
         if int(str(disk_usage('/')[0]/1024/1024/1024).split(".")[0]) <= 50: ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_CHECK_SPECS"][1])
         if int(cpu_count()) <= 1: ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_CHECK_SPECS"][2])
 
+
+    # // Get CHECKSUM
     def _GET_CHECKSUM():
         md5_hash = hashlib.md5()
         file = open(''.join(sys.argv), "rb")
@@ -206,42 +210,66 @@ class ExtraLayer:
             print(f"DEBUG: _GET_CHECKSUM | {digest}")
         return digest
 
-    def _RM_JUNK():
-        for JUNK_ID in ExtraLayer.JUNK_IDS:
-            codes = f"""
-class _{JUNK_ID}_: # // JunkCode (Remove If ExtraLayer Dident!)
-    print("{JUNK_ID}")
-            """
-            with open(ExtraLayer.self_file, "r+") as text_file:
-                texts = text_file.read()
-                texts = texts.replace(codes, "")
-            with open(ExtraLayer.self_file, "w") as text_file:
-                text_file.write(texts)
+    # // Remove Junk
+    def _RM_JUNK(JunkCode:str):
+        with open(ExtraLayer.self_file, "r+") as text_file:
+            texts = text_file.read()
+            texts = texts.replace(JunkCode, "")
+        with open(ExtraLayer.self_file, "w") as text_file:
+            text_file.write(texts)
         return ExtraLayer._GET_CHECKSUM()
 
+    # // Add Junk
     def _ADD_JUNK():
         with open(ExtraLayer.self_file, 'a+') as PythonFile:
             JUNK_ID = uuid.uuid4().hex
-            ExtraLayer.JUNK_IDS.append(str(JUNK_ID))
-            junk = f"""
-class _{JUNK_ID}_: # // JunkCode (Remove If ExtraLayer Dident!)
-    print("{JUNK_ID}")
+            
+            # // Randomize even more!
+            Headers = (
+                f'def _{JUNK_ID}_():', 
+                f'class _{JUNK_ID}_():',
+            )
+            # // Random Spam
+            Bodies = (
+                f'Execute1_{random.randint(1,100)} = exec(print("{JUNK_ID}"))', 
+                f'Execute2_{random.randint(1,100)} = exec(math.ceil({random.randint(1,1000)}) * math.exp({random.randint(1,1000)}))',
+                f'Execute3_{random.randint(1,100)} = exec(str("{ExtraLayer.self_file}") + str("_FILE"))',
+                f'Execute4_{random.randint(1,100)} = exec(math.floor({random.randint(1,1000)} / math.ceil({random.randint(1,5000)})))',
+                f'Execute5_{random.randint(1,100)} = exec({math.hypot(1.0, 100.0)} - {random.randint(303,30482)})',
+                f'Execute6_{random.randint(1,100)} = exec(print("Protected by ExtraLayer | Github"))'
+            )
+
+            JunkCode = f"""
+{random.choice(Headers)}
+    def _{JUNK_ID}_():
+        {random.choice(Bodies)}
+        {random.choice(Bodies)}
+        {random.choice(Bodies)}
+        {random.choice(Bodies)}
+    _{JUNK_ID}_()
             """
-            PythonFile.write(f"{junk}")
+
+            # // Write junk-code to self_file
+            PythonFile.write(f"{JunkCode}")
+
+            # // Returning junk-code, for removal
+            return JunkCode
 
     def _JUNK_CODE():
         while True:
-            ExtraLayer._ADD_JUNK() # // ADD JUNK CODE
-            if ExtraLayer.LAYER_SEND_INFO:
+            CheckSum = ExtraLayer._GET_CHECKSUM()
+            JunkCode = ExtraLayer._ADD_JUNK() # // ADD JUNK CODE (Returns the junk-code)
+            if ExtraLayer.LAYER_SEND_INFO and JunkCode:
                 print("DEBUG: Added Junk")
-            time.sleep(2)
-            RM_CHECK = ExtraLayer._RM_JUNK() # // REMOVE JUNK CODE
-            if ExtraLayer.LAYER_SEND_INFO:
+            time.sleep(1.5)
+            RM_CHECK = ExtraLayer._RM_JUNK(JunkCode=JunkCode) # // REMOVE JUNK CODE (Takes junk-code as a input)
+            if ExtraLayer.LAYER_SEND_INFO and RM_CHECK:
                 print("DEBUG: Removed Junk")
-            if ExtraLayer._GET_CHECKSUM() == RM_CHECK:
-                time.sleep(0.5)
+            NewCheckSum = ExtraLayer._GET_CHECKSUM()
+            if CheckSum == NewCheckSum:
+                time.sleep(0.5) # // Waiting,
             else:
-                ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_JUNK_CODE"][0])
+                ExtraLayer._EXIT(f'{ExtraLayer.LAYER_REASONS["_JUNK_CODE"][0]}') # // Hard-Exit
 
     # // Main | Startup
     def _START_LAYER():
