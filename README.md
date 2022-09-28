@@ -6,25 +6,25 @@ Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back
 | Plugin | Function |
 | ------ | ------ |
 | Discord | Allow's logging on Hard-EXIT |
-| EXIT | Hard close's the program | 
-| CHECK_WINDOWS | Check's if debug programs are open. |
-| CHECK_IP | Check's if the IP is a blacklisted or common IP |
-| CHECK_VM | Check's if a VM executable is open VMwareTray or VMwareService |
-| CHECK_REGISTRY | Check's if VM is being used also HWIDKey |
-| CHECK_DLL | Check's if GUEST is being used also if VM is being used |
-| CHECK_SPECS | Check's CPU/Memory Counts Common mistakes in VM's |
+| _EXIT | Hard close's the program | 
+| _CHECK_WINDOWS | Check's if debug programs are open. |
+| _CHECK_IP | Check's if the IP is a blacklisted or common IP |
+| _CHECK_VM | Check's if a VM executable is open VMwareTray or VMwareService |
+| _CHECK_REGISTRY | Check's if VM is being used also HWIDKey |
+| _CHECK_DLL | Check's if GUEST is being used also if VM is being used |
+| _CHECK_SPECS | Check's CPU/Memory Counts Common mistakes in VM's |
 | _GET_CHECKSUM | Get Scripts CheckSum / Hash |
 | _ADD_JUNK | Add's JunkCode (Changes CheckSum) |
 | _RM_JUNK | Remove's JunkCode (Changes CheckSum) |
 | _JUNK_CODE | Main Thread for JunkCode |
-| START_LAYER | Start's the Anti-Debugger |
+| _START_LAYER | Start's the Anti-Debugger |
 
 ## Example:
 Simple Example
 ```py
 # // Import ExtraLayer or copy code into your main-file!
 
-ExtraLayer._START_LAYER() # // This will init ExtraLayer | THIS SHOULD BE THE FIRST THING YOU DO!
+ExtraLayer._START_LAYER() # // This will start ExtraLayey, this should be the first thing you do!
 ```
 Testing WebHook
 ```py
@@ -40,6 +40,12 @@ Staring the project helps me know!
 
 
 ## ChangeLog:
+* 9/27/2022 -- 0.4
+  * Remade Live-JunkCode Generator `->(Now uses advanced code snippets)`
+    * Snippet Changes `->(Uses more advanced code snippets)`
+    * Performance Changes `->(Now is a-lot faster)`
+    * Masks `->(It looks like obfuscated code, attacker might spend time finding out what it does)`
+
 * 9/26/2022 -- 0.3
   * Added Live-JunkCode Generator `->(Mainly used to change checksum)`.
   * Slight code improvements.
