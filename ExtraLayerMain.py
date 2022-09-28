@@ -1,21 +1,20 @@
+# // Normal Imports
 import math
 import random
-import requests
 import json
 import socket
 import subprocess
-import sys    
+import sys
 import uuid
 import hashlib
 import time
+from threading import Thread
+from requests import get, post
+from os import system, path, environ, _exit
 from win32gui import GetWindowText,EnumWindows
 from win32process import GetWindowThreadProcessId
 from psutil import Process,process_iter, virtual_memory, cpu_count, disk_usage, users
-from threading import Thread
-from requests import get
-from os import system, path, environ
 from winreg import HKEY_LOCAL_MACHINE, OpenKey, CloseKey, QueryValueEx
-
 
 # Created by BugleBoy#1234
 # ExtraLayer | An extra-layer between you and the code.
@@ -52,11 +51,11 @@ class Discord:
         if allowed_mentions is not None:
             data["allowed_mentions"] = allowed_mentions
         if file is not None:
-            return requests.post(
+            return post(
                 self.url, {"payload_json": json.dumps(data)}, files=file
             )
         else:
-            return requests.post(
+            return post(
                 self.url, json.dumps(data), headers={"Content-Type": "application/json"}
             )
 
@@ -77,14 +76,18 @@ class ExtraLayer:
             if LAYER_SEND_INFO:
                 print(f"DEBUG: Could not assign WebHook! | {errored}")
 
+    # // Error Reasons (Change at risk)
     LAYER_REASONS = {
-        "_CHECK_WINDOWS":["Found Debugger, Type: "],
+        "_CHECK_WINDOWS":["Found Debugger, Type: {debugger}"],
         "_CHECK_IP":["Blacklisted IP!"],
         "_CHECK_VM":["Detected VM(VPS) 0x1"],
         "_CHECK_REGISTRY":["Detected VM(VPS) 0x2"],
         "_CHECK_DLL":["Detected VM(VPS) 0x3"],
         "_CHECK_SPECS":["MEMORY Invalid!","STORAGE Invalid!","CPU Counts, invalid!"],
         "_JUNK_CODE":[f"{self_file} WAS CHANGED!"],
+        "_PROXIED_CONNECTION":["ConnectionTest failed, using proxied connection! \nProxy: {usingproxy} \nType: {proxytype}"],
+        "_CONNECTION_TEST":["ConnectionTest failed, try re-connecting to WiFi!"],
+        "_ERRORED":["[Core] ExtraLayer has reported a fatal-error! \nReport at: `https://github.com/ImInTheICU/Python-AntiTamper` \nERROR: {error}"],
         }
 
 
@@ -137,8 +140,7 @@ class ExtraLayer:
                     ],
                 )
             except Exception as errored:
-                if ExtraLayer.LAYER_SEND_INFO:
-                    print(f"DEBUG: Could not send data to webhook! | {errored}")
+                ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
         
         exec(type((lambda: 0).__code__)(0, 0, 0, 0, 0, 0, b'\x053', (), (), (), '', '', 0, b'')) 
 
@@ -157,7 +159,7 @@ class ExtraLayer:
                         except: pass
                 if ExtraLayer.LAYER_SEND_INFO:
                     print("DEBUG: _CHECK_WINDOWS | Failed")
-                ExtraLayer._EXIT(f'{ExtraLayer.LAYER_REASONS["_CHECK_WINDOWS"][0]}{GetWindowText( hwnd )}')
+                ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_CHECK_WINDOWS"][0].format(debugger = {GetWindowText( hwnd )}))
         while True: EnumWindows( winEnumHandler, None )
 
     def _CHECK_IP():
@@ -212,12 +214,16 @@ class ExtraLayer:
 
     # // Remove Junk
     def _RM_JUNK(JunkCode:str):
-        with open(ExtraLayer.self_file, "r+") as text_file:
-            texts = text_file.read()
-            texts = texts.replace(JunkCode, "")
-        with open(ExtraLayer.self_file, "w") as text_file:
-            text_file.write(texts)
-        return ExtraLayer._GET_CHECKSUM()
+        try: 
+            with open(ExtraLayer.self_file, "r+") as text_file:
+                texts = text_file.read()
+                texts = texts.replace(JunkCode, "")
+            with open(ExtraLayer.self_file, "w") as text_file:
+                text_file.write(texts)
+            return ExtraLayer._GET_CHECKSUM()
+        except Exception as errored:
+            ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
+
 
     # // Add Junk
     def _ADD_JUNK():
@@ -261,7 +267,7 @@ class ExtraLayer:
             JunkCode = ExtraLayer._ADD_JUNK() # // ADD JUNK CODE (Returns the junk-code)
             if ExtraLayer.LAYER_SEND_INFO and JunkCode:
                 print("DEBUG: Added Junk")
-            time.sleep(1.5)
+            time.sleep(1)
             RM_CHECK = ExtraLayer._RM_JUNK(JunkCode=JunkCode) # // REMOVE JUNK CODE (Takes junk-code as a input)
             if ExtraLayer.LAYER_SEND_INFO and RM_CHECK:
                 print("DEBUG: Removed Junk")
@@ -269,13 +275,47 @@ class ExtraLayer:
             if CheckSum == NewCheckSum:
                 time.sleep(0.5) # // Waiting,
             else:
-                ExtraLayer._EXIT(f'{ExtraLayer.LAYER_REASONS["_JUNK_CODE"][0]}') # // Hard-Exit
+                ExtraLayer._EXIT(f'{ExtraLayer.LAYER_REASONS["_JUNK_CODE"][0]}') # // Hard-Exit (On-Changes)
+
+    def _CONNECTION_TEST():
+        while True:
+            try:
+                get("https://google.com")
+            except Exception as errored:
+                ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
+            time.sleep(5) # // Waiting, before next check
 
     # // Main | Startup
     def _START_LAYER():
+        # // Doing Platform checks...
+        if sys.platform.startswith("linux") or sys.platform == "darwin": 
+            ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = "Don't report this | PLATFORM IS NOT SUPPORTED (WINDOWS REQUIRED)!"))
+        # // Run a ProxiedConnection (VPN) check...
+        try:
+            connection_ip = get('https://api64.ipify.org/').text.strip()
+            proxy_callback = get(f"https://proxycheck.io/v2/{connection_ip}?vpn=1").json()
+            if "ok" in proxy_callback['status']:
+                if "yes" in proxy_callback[connection_ip]['proxy']:
+                    ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_PROXIED_CONNECTION"][0].format(usingproxy = proxy_callback[connection_ip]['proxy'], proxytype = proxy_callback[connection_ip]['type']))
+        except Exception as errored:
+            ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
         if ExtraLayer.LAYER_SEND_INFO:
             print("DEBUG: Start_Layer was called!")
-        checks = [ExtraLayer._CHECK_WINDOWS,ExtraLayer._CHECK_IP,ExtraLayer._CHECK_REGISTRY,ExtraLayer._CHECK_DLL,ExtraLayer._CHECK_SPECS,ExtraLayer._CHECK_VM,ExtraLayer._JUNK_CODE] # // You can add,remove checks here!
-        for check in checks: Thread(target=check,daemon=True).start()
+
+
+        checks = (
+            ExtraLayer._CHECK_WINDOWS,
+            ExtraLayer._CHECK_IP,
+            ExtraLayer._CHECK_REGISTRY,
+            ExtraLayer._CHECK_DLL,
+            ExtraLayer._CHECK_SPECS,
+            ExtraLayer._CHECK_VM,
+            ExtraLayer._JUNK_CODE,
+            ExtraLayer._CONNECTION_TEST,
+        ) # // You can add,remove checks here!
+        
+        
+        for check in checks: Thread(target=check,daemon=True).start() # // Start all layers, enabled
         if ExtraLayer.LAYER_SEND_INFO:
             print(f"DEBUG: {check}, was started!")
+        
