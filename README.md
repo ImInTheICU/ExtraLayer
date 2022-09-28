@@ -24,7 +24,7 @@ Simple Example
 ```py
 # // Import ExtraLayer or copy code into your main-file!
 
-ExtraLayer._START_LAYER() # // This will start ExtraLayey, this should be the first thing you do!
+ExtraLayer._START_LAYER() # // This will start ExtraLayer, this should be the first thing you do!
 ```
 Testing WebHook
 ```py
