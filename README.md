@@ -1,5 +1,5 @@
 # Extra-Layer
-Extra-Layer is a Python Anti-Tamper tool, that includes `13` layers of checks, that can be enabled or disabled at any time.
+Extra-Layer is a Python Anti-Tamper tool, that includes `14` layers of checks, that can be enabled or disabled at any time.
 Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back-ground of the users computer as the main script runs.
 
 ## Extra-Layer Moduels
@@ -17,6 +17,7 @@ Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back
 | _ADD_JUNK | Add's JunkCode (Changes CheckSum) |
 | _RM_JUNK | Remove's JunkCode (Changes CheckSum) |
 | _JUNK_CODE | Main Thread for JunkCode |
+| _CONNECTION_TEST | Ping's Google (making sure client is connected to wifi) |
 | _START_LAYER | Start's the Anti-Debugger |
 
 ## Usage:
@@ -37,12 +38,18 @@ ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless you
 
 ![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.PNG?raw=true)
 
-
 ## Like what you see?
 Staring the project helps me know!
 
-
 ## ChangeLog:
+* 9/28/2022 -- 0.5
+  * Connection Check `->(Ping's google before starting, making sure theres a connection)` 
+  * Proxied Connection Check `->(Checks if the IP is a proxy or / vpn)`
+  * Performance Changes `->(Running Faster)`
+    * Fixed some reasons `->(Not displaying correct reasons)`
+    * Better ListObj `->(Converting [] to () because it runs faster)`
+    * Added Error Handling `->(Now tell's the user the fatal-error and how to solve it)`
+
 * 9/27/2022 -- 0.4
   * Remade Live-JunkCode Generator `->(Now uses advanced code snippets)`
     * Snippet Changes `->(Uses more advanced code snippets)`
