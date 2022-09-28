@@ -19,8 +19,10 @@ Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back
 | _JUNK_CODE | Main Thread for JunkCode |
 | _START_LAYER | Start's the Anti-Debugger |
 
-## Example:
-Simple Example
+## Usage:
+**ExtraLayer, should be used or / paired with a obfuscator of some type!**
+
+Simple Usage
 ```py
 # // Import ExtraLayer or copy code into your main-file!
 
@@ -34,6 +36,7 @@ ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless you
 ```
 
 ![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.PNG?raw=true)
+
 
 ## Like what you see?
 Staring the project helps me know!
