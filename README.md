@@ -17,7 +17,7 @@ Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back
 | _ADD_JUNK | Add's JunkCode (Changes CheckSum) |
 | _RM_JUNK | Remove's JunkCode (Changes CheckSum) |
 | _JUNK_CODE | Main Thread for JunkCode |
-| _CONNECTION_TEST | Ping's Google (making sure client is connected to wifi) |
+| _CONNECTION_TEST | Ping's Google, also making sure the client is not using VPN(proxy) |
 | _START_LAYER | Start's the Anti-Debugger |
 
 ## Usage:
@@ -42,6 +42,13 @@ ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless you
 Staring the project helps me know!
 
 ## ChangeLog:
+* 9/30/2022 = 0.6
+  * Updated JunkCode `->(More realistic junkcode)`
+    * _QUICK_CALL_JUNKCODE(True,False) `->(Allow's me to call random functions from withen junkcode)`
+    * Added more random junk
+  * Updated _CONNECTION_TEST `->(Moved Proxied Connection)`
+    * Proxied Connection checker now runs every 5 seconds inside of `_CONNECTION_TEST`
+
 * 9/28/2022 -- 0.5
   * Connection Check `->(Ping's google before starting, making sure theres a connection)` 
   * Proxied Connection Check `->(Checks if the IP is a proxy or / vpn)`
