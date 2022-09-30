@@ -67,6 +67,7 @@ class ExtraLayer:
     LAYER_DISCORD_WEBHOOK = "https://discordapp.com/api/webhooks/..../........"
 
     # // Extras
+
     self_file =  path.basename(sys.argv[0]) # // The name of the file (in-case it gets re-named)
 
     if LAYER_DISCORD_WEBHOOK != "":
@@ -229,7 +230,8 @@ class ExtraLayer:
     def _ADD_JUNK():
         with open(ExtraLayer.self_file, 'a+') as PythonFile:
             JUNK_ID = uuid.uuid4().hex
-            
+            JUNK_ID2 = uuid.uuid4().hex
+
             # // Randomize even more!
             Headers = (
                 f'def _{JUNK_ID}_():', 
@@ -237,22 +239,57 @@ class ExtraLayer:
             )
             # // Random Spam
             Bodies = (
-                f'Execute1_{random.randint(1,100)} = exec(print("{JUNK_ID}"))', 
-                f'Execute2_{random.randint(1,100)} = exec(math.ceil({random.randint(1,1000)}) * math.exp({random.randint(1,1000)}))',
-                f'Execute3_{random.randint(1,100)} = exec(str("{ExtraLayer.self_file}") + str("_FILE"))',
-                f'Execute4_{random.randint(1,100)} = exec(math.floor({random.randint(1,1000)} / math.ceil({random.randint(1,5000)})))',
-                f'Execute5_{random.randint(1,100)} = exec({math.hypot(1.0, 100.0)} - {random.randint(303,30482)})',
-                f'Execute6_{random.randint(1,100)} = exec(print("Protected by ExtraLayer | Github"))'
+                f'= exec(print("{JUNK_ID}"))', 
+                f'= exec(math.ceil({random.randint(1,1000)}) * math.exp({random.randint(1,1000)}))',
+                f'= exec(str("{ExtraLayer.self_file}") + str("_FILE"))',
+                f'= exec(math.floor({random.randint(1,1000)} / math.ceil({random.randint(1,5000)})))',
+                f'= exec({math.hypot(1.0, 100.0)} - {random.randint(303,30482)})',
+                f'= exec(print("Protected by ExtraLayer | Github"))',
+                f'= exec(print("L + Ratio | Check out Hyperion!"))'
             )
 
+            # // Allow's to return the VAR (for calling it) or the Joint (for defining it)
+            def _QUICK_CALL_JUNKCODE(type:bool):
+                BodieName = f"Execute_{random.randint(1,100)}"
+                if type == True:
+                    return BodieName
+                elif type == False:
+                    BodieJoint = f"{BodieName} {random.choice(Bodies)}"
+                    return BodieJoint
+
+            # // Everything in 'JunkCode' is pear junk, dw about it
             JunkCode = f"""
+# ; ) dont worry about this
 {random.choice(Headers)}
     def _{JUNK_ID}_():
-        {random.choice(Bodies)}
-        {random.choice(Bodies)}
-        {random.choice(Bodies)}
-        {random.choice(Bodies)}
-    _{JUNK_ID}_()
+        {_QUICK_CALL_JUNKCODE(False)}
+        {_QUICK_CALL_JUNKCODE(False)}
+        {_QUICK_CALL_JUNKCODE(False)}
+        {_QUICK_CALL_JUNKCODE(False)}
+
+        {_QUICK_CALL_JUNKCODE(True)}() # Call Protection!
+    _{JUNK_ID}_() # Call Functions for byte334 code!
+    
+    def _{JUNK_ID}_():
+        {_QUICK_CALL_JUNKCODE(False)}
+        {_QUICK_CALL_JUNKCODE(False)}
+        {_QUICK_CALL_JUNKCODE(False)}
+        {_QUICK_CALL_JUNKCODE(False)}
+
+        {_QUICK_CALL_JUNKCODE(True)}() # Call Protection!
+    _{JUNK_ID}_() # Call Functions for byte2 code!
+
+    # call p2p class (bro api)
+    class _{JUNK_ID2}_():
+        def _{JUNK_ID}_():
+            {_QUICK_CALL_JUNKCODE(False)}
+            {_QUICK_CALL_JUNKCODE(False)}
+            {_QUICK_CALL_JUNKCODE(False)}
+            {_QUICK_CALL_JUNKCODE(False)}
+
+            {_QUICK_CALL_JUNKCODE(True)}() # Call Protection!  
+    returns = _{JUNK_ID2}_() # just incase byte code fails ; )
+    print(returns)
             """
 
             # // Write junk-code to self_file
@@ -280,28 +317,22 @@ class ExtraLayer:
     def _CONNECTION_TEST():
         while True:
             try:
-                get("https://google.com")
+                connection_ip = get('https://api64.ipify.org/').text.strip()
+                proxy_callback = get(f"https://proxycheck.io/v2/{connection_ip}?vpn=1").json()
+                if "ok" in proxy_callback['status']:
+                    if "yes" in proxy_callback[connection_ip]['proxy']:
+                        ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_PROXIED_CONNECTION"][0].format(usingproxy = proxy_callback[connection_ip]['proxy'], proxytype = proxy_callback[connection_ip]['type']))
             except Exception as errored:
                 ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
-            time.sleep(5) # // Waiting, before next check
+            time.sleep(5)
 
     # // Main | Startup
     def _START_LAYER():
         # // Doing Platform checks...
         if sys.platform.startswith("linux") or sys.platform == "darwin": 
             ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = "Don't report this | PLATFORM IS NOT SUPPORTED (WINDOWS REQUIRED)!"))
-        # // Run a ProxiedConnection (VPN) check...
-        try:
-            connection_ip = get('https://api64.ipify.org/').text.strip()
-            proxy_callback = get(f"https://proxycheck.io/v2/{connection_ip}?vpn=1").json()
-            if "ok" in proxy_callback['status']:
-                if "yes" in proxy_callback[connection_ip]['proxy']:
-                    ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_PROXIED_CONNECTION"][0].format(usingproxy = proxy_callback[connection_ip]['proxy'], proxytype = proxy_callback[connection_ip]['type']))
-        except Exception as errored:
-            ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
         if ExtraLayer.LAYER_SEND_INFO:
             print("DEBUG: Start_Layer was called!")
-
 
         checks = (
             ExtraLayer._CHECK_WINDOWS,
@@ -314,8 +345,6 @@ class ExtraLayer:
             ExtraLayer._CONNECTION_TEST,
         ) # // You can add,remove checks here!
         
-        
         for check in checks: Thread(target=check,daemon=True).start() # // Start all layers, enabled
         if ExtraLayer.LAYER_SEND_INFO:
             print(f"DEBUG: {check}, was started!")
-        
