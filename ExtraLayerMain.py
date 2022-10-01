@@ -1,5 +1,7 @@
 # // Normal Imports
+from asyncio.format_helpers import extract_stack
 import math
+import ctypes
 import random
 import json
 import socket
@@ -10,7 +12,7 @@ import hashlib
 import time
 from threading import Thread
 from requests import get, post
-from os import system, path, environ, _exit
+from os import system, path, environ
 from win32gui import GetWindowText,EnumWindows
 from win32process import GetWindowThreadProcessId
 from psutil import Process,process_iter, virtual_memory, cpu_count, disk_usage, users
@@ -18,7 +20,7 @@ from winreg import HKEY_LOCAL_MACHINE, OpenKey, CloseKey, QueryValueEx
 
 # Created by BugleBoy#1234
 # ExtraLayer | An extra-layer between you and the code.
-# ExtraLayer | Should be used along with a obfuscator!
+# ExtraLayer | Should be used along with a obfuscator! (suggest using Hyperion)
 
 # // Secondary Class for logging.
 class Discord:
@@ -326,6 +328,14 @@ class ExtraLayer:
                 ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
             time.sleep(5)
 
+    def _UAC(KeepRunningIfFail:bool):
+        if KeepRunningIfFail == False:
+            # // Exit if UAC was not granted
+            ctypes.windll.shell32.IsUserAnAdmin() or (ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) > 32, exit())
+        elif KeepRunningIfFail == True:
+            # // Don't exit even if UAC was not granted
+            ctypes.windll.shell32.IsUserAnAdmin() or ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) > 32 and exit()
+        
     # // Main | Startup
     def _START_LAYER():
         # // Doing Platform checks...
@@ -343,8 +353,16 @@ class ExtraLayer:
             ExtraLayer._CHECK_VM,
             ExtraLayer._JUNK_CODE,
             ExtraLayer._CONNECTION_TEST,
+            ExtraLayer._UAC
         ) # // You can add,remove checks here!
         
+        # // Run in UAC thread...
+        if ExtraLayer._UAC in checks:
+            if ExtraLayer.LAYER_SEND_INFO:
+                print(f"DEBUG: UAC was started in a new thread!")
+            ExtraLayer._UAC(KeepRunningIfFail = False) # // This arg allows you to exit if UAC is not granted.  
+
         for check in checks: Thread(target=check,daemon=True).start() # // Start all layers, enabled
         if ExtraLayer.LAYER_SEND_INFO:
             print(f"DEBUG: {check}, was started!")
+
