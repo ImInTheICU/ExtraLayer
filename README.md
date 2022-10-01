@@ -1,94 +1,75 @@
-# Extra-Layer
-Extra-Layer is a Python Anti-Tamper tool, that includes `14` layers of checks, that can be enabled or disabled at any time.
-Extar-Layer is a one of a kind Anti-Tamper tool, that runs very fast in the back-ground of the users computer as the main script runs.
 
-## Extra-Layer Moduels
-| Plugin | Function |
-| ------ | ------ |
-| Discord | Allow's logging on Hard-EXIT |
-| _EXIT | Hard close's the program | 
-| _CHECK_WINDOWS | Check's if debug programs are open. |
-| _CHECK_IP | Check's if the IP is a blacklisted or common IP |
-| _CHECK_VM | Check's if a VM executable is open VMwareTray or VMwareService |
-| _CHECK_REGISTRY | Check's if VM is being used also HWIDKey |
-| _CHECK_DLL | Check's if GUEST is being used also if VM is being used |
-| _CHECK_SPECS | Check's CPU/Memory Counts Common mistakes in VM's |
-| _GET_CHECKSUM | Get Scripts CheckSum / Hash |
-| _ADD_JUNK | Add's JunkCode (Changes CheckSum) |
-| _RM_JUNK | Remove's JunkCode (Changes CheckSum) |
-| _JUNK_CODE | Main Thread for JunkCode |
-| _CONNECTION_TEST | Ping's Google, also making sure the client is not using VPN(proxy) |
-| _START_LAYER | Start's the Anti-Debugger |
+# ExtraLayer
 
-## Usage:
-**ExtraLayer, should be used or / paired with a obfuscator of some type!**
+ExtraLayer fast, simple, secure, no-limits!
 
-Simple Usage
-```py
-# // Import ExtraLayer or copy code into your main-file!
+## Features
 
-ExtraLayer._START_LAYER() # // This will start ExtraLayer, this should be the first thing you do!
+- AntiDebug Tool
+- AntiVM
+- Blocks Common IP's
+- Blocks VPNs(Proxy's)
+- File Hash Changer
+- JunkCode Generator
+## Usage/Examples
+
+**Running**
+```python
+# // Paste-Code from MainFile or import from main file
+
+ExtraLayer._START_LAYER() # // You can edit the modules in _START_LAYER function
 ```
-Testing WebHook
-```py
-# // Import ExtraLayer or copy code into your main-file!
+**Testing WebHook Configuration**
+```python
+# // Paste-Code from MainFile or import from main file
 
-ExtraLayer._EXIT(reason="Testing ExtraLayer") # // Should not be used inless your testing webhook.
+ExtraLayer._EXIT(reason="Testing Webhook!")
 ```
 
-![Example Logging](https://github.com/ImInTheICU/Python-AntiTamper/blob/main/Capture.PNG?raw=true)
+## Demo
 
-## Like what you see?
-Staring the project helps me know!
+**Logging Example**
 
-## ChangeLog:
-* 9/30/2022 = 0.6
-  * Updated JunkCode `->(More realistic junkcode)`
-    * _QUICK_CALL_JUNKCODE(True,False) `->(Allow's me to call random functions from withen junkcode)`
-    * Added more random junk
-  * Updated _CONNECTION_TEST `->(Moved Proxied Connection)`
-    * Proxied Connection checker now runs every 5 seconds inside of `_CONNECTION_TEST`
+![Logging Example](https://raw.githubusercontent.com/ImInTheICU/ExtraLayer/main/demo/Capture.PNG)
 
-* 9/28/2022 -- 0.5
-  * Connection Check `->(Ping's google before starting, making sure theres a connection)` 
-  * Proxied Connection Check `->(Checks if the IP is a proxy or / vpn)`
-  * Performance Changes `->(Running Faster)`
-    * Fixed some reasons `->(Not displaying correct reasons)`
-    * Better ListObj `->(Converting [] to () because it runs faster)`
-    * Added Error Handling `->(Now tell's the user the fatal-error and how to solve it)`
+**JunkCode Example**
 
-* 9/27/2022 -- 0.4
-  * Remade Live-JunkCode Generator `->(Now uses advanced code snippets)`
-    * Snippet Changes `->(Uses more advanced code snippets)`
-    * Performance Changes `->(Now is a-lot faster)`
-    * Masks `->(It looks like obfuscated code, attacker might spend time finding out what it does)`
+![JunkCode Example](https://raw.githubusercontent.com/ImInTheICU/ExtraLayer/main/demo/junkcode.gif)
 
-* 9/26/2022 -- 0.3
-  * Added Live-JunkCode Generator `->(Mainly used to change checksum)`.
-  * Slight code improvements.
+## Roadmap
 
-* 9/26/2022 -- 0.2
-  * Fixed LAYER_SEND_DEBUG.
-  * Changed EXIT_Reasons.
-  * Custom EXIT_Reasons.
-  * WebHook Logging, with PC info. `->PC-Name,All-PC's,IP,Detection,HWID`
+- More Anti-Debug // Anti-Tamper Methods
+- Support UNIX // Not Supported due to lack of API's
+- Better Logging // Log more on user PC's (if attempted debug detected)
+- Better JunkCode // JunkCode Recode
+## FAQ
 
-* 9/25/2022 -- 0.1
-  * Creating Main `->BackEnd`
+#### Is ExtraLayer a obfuscator?
 
-## TODO:
-- More Layer's of anti-debugger / anti-tamper
-- Better Code / De-spaghetti the code (W.I.P)
-- QOF Improvements (W.I.P)
+No, ExtraLayer Is a anti-debugging tool used along with a obfuscator. (hyperion :D ) 
 
-## Contributing
-Contributing is the fun part!
-Wan't to help or improve something?!
-Make a pull-request or you can dm me on discord, **BugleBoy#1234** / **DDR4Ram#6643**
-We're currently looking for more ways to stop debugging and improve our methods.
+#### How good Is ExtraLayer?
+
+ExtraLayer can migrate most advanced attacks, debugging methods.
+
+### Can I use ExtraLayer alone?
+
+Yes, its not suggested due to how easy it is to disable without some-type of obfuscation.
+
+## Used By
+
+This project is used by the following projects:
+
+*None yet... : (*
+
+## Authors
+
+- [@BugleBoy](https://github.com/ImInTheICU)
+
 
 ## License
-MIT
 
-Extra-Layer is free and open-source, i dont mind you taking or modifying code. 
-Credits would be nice!
+ExtraLayer Is open-source and free to use, you don't need to credit me... but it would be nice
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
