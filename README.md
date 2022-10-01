@@ -11,6 +11,8 @@ ExtraLayer fast, simple, secure, no-limits!
 - Blocks VPNs(Proxy's)
 - File Hash Changer
 - JunkCode Generator
+- Ask for UAC (admin) on open
+
 ## Usage/Examples
 
 **Running**
