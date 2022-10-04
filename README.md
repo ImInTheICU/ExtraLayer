@@ -2,6 +2,8 @@
 # ExtraLayer
 
 ExtraLayer fast, simple, secure, no-limits!
+*Thanks for all of the support! :D*
+*Check out Fasent Obfuscator https://discord.gg/hzJZTA6MXa*
 
 ## Features
 
@@ -48,11 +50,11 @@ ExtraLayer._EXIT(reason="Testing Webhook!")
 
 #### Is ExtraLayer a obfuscator?
 
-No, ExtraLayer Is a anti-debugging tool used along with a obfuscator. (hyperion :D ) 
+No, ExtraLayer Is a anti-debugging tool that should be used along with a obfuscator. ( hyperion :D or Fasent https://discord.gg/hzJZTA6MXa ) 
 
 #### How good Is ExtraLayer?
 
-ExtraLayer can migrate most advanced attacks, debugging methods.
+ExtraLayer can migrate most advanced attacks and debugging methods.
 
 ### Can I use ExtraLayer alone?
 
