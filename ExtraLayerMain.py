@@ -20,6 +20,7 @@ from winreg import HKEY_LOCAL_MACHINE, OpenKey, CloseKey, QueryValueEx
 # Created by BugleBoy#1234
 # ExtraLayer | An extra-layer between you and the code.
 # ExtraLayer | Should be used along with a obfuscator! (suggest using Hyperion)
+# Fasent | https://discord.gg/hzJZTA6MXa | Fasent Obfuscator : D
 
 # // Secondary Class for logging.
 class Discord:
