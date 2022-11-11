@@ -10,14 +10,18 @@ ExtraLayer fast, simple, secure, no-limits!
 ## Features
 
 - AntiDebug Tool
+- Anti-Modify
 - AntiVM
 - Blocks Common IP's
 - Blocks VPNs(Proxy's)
 - File Hash Changer
 - JunkCode Generator
 - Ask for UAC (admin) on open
+- Nice CLI for easy install
 
 ## Usage/Examples
+
+**Usages OutDated! V0.0.4 Uses CLI!!**
 
 **Running**
 ```python
@@ -33,6 +37,11 @@ ExtraLayer._EXIT(reason="Testing Webhook!")
 ```
 
 ## Demo
+
+**Easy CLI Example**
+
+![CLI Example](https://raw.githubusercontent.com/ImInTheICU/ExtraLayer/main/demo/image.png)
+
 
 **Logging Example**
 
@@ -70,7 +79,7 @@ This project is used by the following projects:
 
 ## Authors
 
-- [@BugleBoy](https://github.com/ImInTheICU)
+- [@BugleBoy](https://github.com/ImInTheICU) / BugleBoy#1234 Discord
 
 
 ## License
