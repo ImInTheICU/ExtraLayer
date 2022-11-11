@@ -1,4 +1,82 @@
-# // Normal Imports
+# // Updated made it semi-automatic.
+# // People got confused on how to use this, sooo made it easier.
+
+# // Created by BugleBoy#1234
+# // ExtraLayer | An extra-layer between you and the code.
+# // ExtraLayer | Should be used along with a obfuscator!
+# // If you need a good obfuscator check out PyCry | https://discord.gg/wqn9EqeAWG
+
+# // EL-Imports
+import os
+
+try:
+    os.system('cls')
+    os.system('title ExtraLayer @ github.com/ImInTheICU/ExtraLayer')
+except:
+    print('[EL-Error] Not supported!')
+    os._exit(0)
+
+# // EL-Defualts
+UseExitReason = False
+UseDiscordWebhook = False
+UseDebugInfo = False
+
+print("""
+ ________              __                         __                                               
+/        |            /  |                       /  |                                              
+$$$$$$$$/  __    __  _$$ |_     ______   ______  $$ |        ______   __    __   ______    ______  
+$$ |__    /  \  /  |/ $$   |   /      \ /      \ $$ |       /      \ /  |  /  | /      \  /      \ 
+$$    |   $$  \/$$/ $$$$$$/   /$$$$$$  |$$$$$$  |$$ |       $$$$$$  |$$ |  $$ |/$$$$$$  |/$$$$$$  |
+$$$$$/     $$  $$<    $$ | __ $$ |  $$/ /    $$ |$$ |       /    $$ |$$ |  $$ |$$    $$ |$$ |  $$/ 
+$$ |_____  /$$$$  \   $$ |/  |$$ |     /$$$$$$$ |$$ |_____ /$$$$$$$ |$$ \__$$ |$$$$$$$$/ $$ |      
+$$       |/$$/ $$  |  $$  $$/ $$ |     $$    $$ |$$       |$$    $$ |$$    $$ |$$       |$$ |      
+$$$$$$$$/ $$/   $$/    $$$$/  $$/       $$$$$$$/ $$$$$$$$/  $$$$$$$/  $$$$$$$ | $$$$$$$/ $$/       
+                                                                     /  \__$$ |                    
+                                                                     $$    $$/                     
+                                                                      $$$$$$/                      
+                        Made by BugleBoy#1234
+                        Star on Github : >
+
+                        V.0.4:
+                        + Added a CLI to help people add ExtraLayer
+                        + Fixed some modules
+                        + Fixed JunkCode
+
+""")
+
+while True:
+    FileName = str(input("[EL-Select] FileName (Drag File Here/Enter File Name) -: "))
+
+    if not os.path.exists(FileName):
+        print("\n[EL-Error] That file does not exist :<")
+    else:
+        break
+
+print("\n[EL-Info] Please select you're config using Yes/No(Y/N).\
+    \n\t*User see's exit-reason \n\t\tIf the user will see the reason the program denied access to them.\
+    \n\t*User see's debug info \n\t\tIf the user will see error's / program problems.\
+    \n\t*Log debug/deobfuscation attempts to webhook \n\t\tIf the user's info will be logged if deobfuscation is attempted.")
+
+ELSelect1 = str(input("\n\n[EL-Select] User see's exit-reason (Yes/No) -: "))
+ELSelect2 = str(input("[EL-Select] User see's debug info (Yes/No) -: "))
+ELSelect3 = str(input("[EL-Select] Log debug/deobfuscation attempts to webhook (Yes/No) -: "))
+
+if ELSelect1.lower() in ('yes','y'): UseExitReason = True
+elif ELSelect1.lower() in ('no','n'): UseExitReason = False
+else: print("\n[EL-Error] You dident select (Yes/No), so I defualted it to 'yes'"); UseExitReason = True
+if ELSelect2.lower() in ('yes','y'): UseDebugInfo = True
+elif ELSelect2.lower() in ('no','n'): UseDebugInfo = False
+else: print("\n[EL-Error] You dident select (Yes/No), so I defualted it to 'no'"); UseDebugInfo = False
+if ELSelect3.lower() in ('yes','y'):
+    ELSelect3_WebHook = str(input("[EL-Select] Enter you're discord webhook -: "))
+elif ELSelect3.lower() in ('no','n'): UseDiscordWebhook = False
+else: print("\n[EL-Error] You dident select (Yes/No), so I defualted it to 'no'"); UseDiscordWebhook = False
+
+
+# // Write new code, this is kinda a nut-shell but like...
+PrewrittenModule = '''
+# // Imports
+import os
 import math
 import ctypes
 import random
@@ -16,11 +94,6 @@ from win32gui import GetWindowText,EnumWindows
 from win32process import GetWindowThreadProcessId
 from psutil import Process,process_iter, virtual_memory, cpu_count, disk_usage, users
 from winreg import HKEY_LOCAL_MACHINE, OpenKey, CloseKey, QueryValueEx
-
-# Created by BugleBoy#1234
-# ExtraLayer | An extra-layer between you and the code.
-# ExtraLayer | Should be used along with a obfuscator! (suggest using Hyperion)
-# Fasent | https://discord.gg/hzJZTA6MXa | Fasent Obfuscator : D
 
 # // Secondary Class for logging.
 class Discord:
@@ -61,13 +134,15 @@ class Discord:
                 self.url, json.dumps(data), headers={"Content-Type": "application/json"}
             )
 
+'''+'''
 # // Main Class
 class ExtraLayer:
     # // Settings
-    LAYER_SEND_REASON = True # // Send the reason of exiting | might help them debug... so use at cation!
-    LAYER_SEND_INFO = False # // Send debug info, of user | might help you debug if ExtraLayer is causing problems!
-    LAYER_DISCORD_WEBHOOK = "https://discordapp.com/api/webhooks/..../........"
-
+    LAYER_SEND_REASON = {LSendReason} # // Send the reason of exiting | might help them debug... so use at cation!
+    LAYER_SEND_INFO = {LSendInfo} # // Send debug info, of user | might help you debug if ExtraLayer is causing problems!
+    LAYER_DISCORD_WEBHOOK = "{LDiscordWebhook}"
+'''.format(LSendReason=UseExitReason,LSendInfo=UseDebugInfo,LDiscordWebhook=ELSelect3_WebHook)+r'''
+    
     # // Extras
 
     self_file =  path.basename(sys.argv[0]) # // The name of the file (in-case it gets re-named)
@@ -218,10 +293,10 @@ class ExtraLayer:
     # // Remove Junk
     def _RM_JUNK(JunkCode:str):
         try: 
-            with open(ExtraLayer.self_file, "r+") as text_file:
+            with open(os.getcwd()+ExtraLayer.self_file, "r+") as text_file:
                 texts = text_file.read()
                 texts = texts.replace(JunkCode, "")
-            with open(ExtraLayer.self_file, "w") as text_file:
+            with open(os.getcwd()+ExtraLayer.self_file, "w") as text_file:
                 text_file.write(texts)
             return ExtraLayer._GET_CHECKSUM()
         except Exception as errored:
@@ -230,7 +305,7 @@ class ExtraLayer:
 
     # // Add Junk
     def _ADD_JUNK():
-        with open(ExtraLayer.self_file, 'a+') as PythonFile:
+        with open(os.getcwd()+ExtraLayer.self_file, 'a+') as PythonFile:
             JUNK_ID = uuid.uuid4().hex
             JUNK_ID2 = uuid.uuid4().hex
 
@@ -328,14 +403,9 @@ class ExtraLayer:
                 ExtraLayer._EXIT(ExtraLayer.LAYER_REASONS["_ERRORED"][0].format(error = errored))
             time.sleep(5)
 
-    def _UAC(KeepRunningIfFail:bool):
-        if KeepRunningIfFail == False:
-            # // Exit if UAC was not granted
-            ctypes.windll.shell32.IsUserAnAdmin() or (ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) > 32, exit())
-        elif KeepRunningIfFail == True:
-            # // Don't exit even if UAC was not granted
-            ctypes.windll.shell32.IsUserAnAdmin() or ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) > 32 and exit()
-        
+    def _UAC():
+        ctypes.windll.shell32.IsUserAnAdmin() or (ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) > 32, exit())
+
     # // Main | Startup
     def _START_LAYER():
         # // Doing Platform checks...
@@ -360,9 +430,28 @@ class ExtraLayer:
         if ExtraLayer._UAC in checks:
             if ExtraLayer.LAYER_SEND_INFO:
                 print(f"DEBUG: UAC was started in a new thread!")
-            ExtraLayer._UAC(KeepRunningIfFail = False) # // This arg allows you to exit if UAC is not granted.  
+            ExtraLayer._UAC() 
 
         for check in checks: Thread(target=check,daemon=True).start() # // Start all layers, enabled
         if ExtraLayer.LAYER_SEND_INFO:
             print(f"DEBUG: {check}, was started!")
 
+ExtraLayer._START_LAYER() # // Startup
+'''+f'''
+
+{open(FileName).read()}
+''' # // Write Orgin
+
+# // Write final code
+with open(FileName[:-3]+'_EL.py','w+') as FP:
+    FP.write(PrewrittenModule)
+
+print(f"[EL-Info] Saved protected to: '{FileName[:-3]+'_EL.py'}'")
+
+print("\n\n[EL-Info] Thanks for using ExtraLayer! \
+    \n\t*You can change the module/checks used near 'def _START_LAYER():' \
+    \n\tIf you enjoyed my tool maybe star it on Github? \
+    \n\tIf you need to contact me my Discord is BugleBoy#1234")
+
+input('\n\n\tPress anything to exit!')
+os._exit(0)
