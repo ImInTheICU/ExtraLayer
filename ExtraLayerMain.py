@@ -37,10 +37,13 @@ $$$$$$$$/ $$/   $$/    $$$$/  $$/       $$$$$$$/ $$$$$$$$/  $$$$$$$/  $$$$$$$ | 
                         Made by BugleBoy#1234
                         Star on Github : >
 
-                        V.0.4:
+                        V.0.4 - HotFix:
+                        - HF (Fixed ELSelect3 - Webhook)
+                        
                         + Added a CLI to help people add ExtraLayer
                         + Fixed some modules
                         + Fixed JunkCode
+
 
 """)
 
@@ -68,6 +71,7 @@ if ELSelect2.lower() in ('yes','y'): UseDebugInfo = True
 elif ELSelect2.lower() in ('no','n'): UseDebugInfo = False
 else: print("\n[EL-Error] You dident select (Yes/No), so I defualted it to 'no'"); UseDebugInfo = False
 if ELSelect3.lower() in ('yes','y'):
+    UseDiscordWebhook = True
     ELSelect3_WebHook = str(input("[EL-Select] Enter you're discord webhook -: "))
 elif ELSelect3.lower() in ('no','n'): UseDiscordWebhook = False
 else: print("\n[EL-Error] You dident select (Yes/No), so I defualted it to 'no'"); UseDiscordWebhook = False
@@ -141,7 +145,7 @@ class ExtraLayer:
     LAYER_SEND_REASON = {LSendReason} # // Send the reason of exiting | might help them debug... so use at cation!
     LAYER_SEND_INFO = {LSendInfo} # // Send debug info, of user | might help you debug if ExtraLayer is causing problems!
     LAYER_DISCORD_WEBHOOK = "{LDiscordWebhook}"
-'''.format(LSendReason=UseExitReason,LSendInfo=UseDebugInfo,LDiscordWebhook=ELSelect3_WebHook)+r'''
+'''.format(LSendReason=UseExitReason,LSendInfo=UseDebugInfo,LDiscordWebhook="" if UseDiscordWebhook == False else ELSelect3_WebHook)+r''' 
     
     # // Extras
 
@@ -452,6 +456,7 @@ print("\n\n[EL-Info] Thanks for using ExtraLayer! \
     \n\t*You can change the module/checks used near 'def _START_LAYER():' \
     \n\tIf you enjoyed my tool maybe star it on Github? \
     \n\tIf you need to contact me my Discord is BugleBoy#1234")
+
 
 input('\n\n\tPress anything to exit!')
 os._exit(0)
