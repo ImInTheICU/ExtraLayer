@@ -5,8 +5,6 @@ ExtraLayer fast, simple, secure, no-limits!
 
 *Thanks for all of the support! :D*
 
-**#Ad Check out PyCry Obfuscator https://discord.gg/wqn9EqeAWG**
-
 ## Features
 
 - AntiDebug Tool
@@ -79,7 +77,7 @@ This project is used by the following projects:
 
 ## Authors
 
-- [@BugleBoy](https://github.com/ImInTheICU) / BugleBoy#1234 Discord
+- [@Bugle](https://github.com/ImInTheICU) / Bugle#1477 Discord
 
 
 ## License
