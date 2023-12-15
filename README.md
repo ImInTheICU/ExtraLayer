@@ -59,7 +59,7 @@ ExtraLayer._EXIT(reason="Testing Webhook!")
 
 #### Is ExtraLayer a obfuscator?
 
-No, ExtraLayer Is a anti-debugging tool that should be used along with a obfuscator. ( hyperion :D or Fasent https://discord.gg/hzJZTA6MXa ) 
+No, ExtraLayer Is a anti-debugging tool that should be used along with a obfuscator. 
 
 #### How good Is ExtraLayer?
 
@@ -77,7 +77,7 @@ This project is used by the following projects:
 
 ## Authors
 
-- [@Bugle](https://github.com/ImInTheICU) / Bugle#1477 Discord
+- [@Pingu](https://github.com/ImInTheICU) / pingulovesu Discord
 
 
 ## License
