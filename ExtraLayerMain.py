@@ -1,10 +1,9 @@
 # // Updated made it semi-automatic.
 # // People got confused on how to use this, sooo made it easier.
 
-# // Created by BugleBoy#1234
+# // Created by `pingulovesu`
 # // ExtraLayer | An extra-layer between you and the code.
 # // ExtraLayer | Should be used along with a obfuscator!
-# // If you need a good obfuscator check out PyCry | https://discord.gg/wqn9EqeAWG
 
 # // EL-Imports
 import os
