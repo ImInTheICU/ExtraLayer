@@ -5,6 +5,10 @@ ExtraLayer fast, simple, secure, no-limits!
 
 *Thanks for all of the support! :D*
 
+## Manglify Obfuscator
+If you are looking to pair this with an obfuscator or looking for an obfuscator may I recommend Manglify a Python 3.12 obfuscator?
+https://github.com/ImInTheICU/Manglify
+
 ## Features
 
 - AntiDebug Tool
